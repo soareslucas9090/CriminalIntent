@@ -1,8 +1,8 @@
-package com.estudos.criminalitent.views
+package com.estudos.criminalintent.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.estudos.criminalitent.R
+import com.estudos.criminalintent.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

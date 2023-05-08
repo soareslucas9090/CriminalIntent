@@ -1,4 +1,4 @@
-package com.estudos.criminalitent
+package com.estudos.criminalintent
 
 import org.junit.Test
 
