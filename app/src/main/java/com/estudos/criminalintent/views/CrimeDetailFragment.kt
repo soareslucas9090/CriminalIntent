@@ -28,7 +28,7 @@ class CrimeDetailFragment: Fragment() {
         )
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCrimeDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
