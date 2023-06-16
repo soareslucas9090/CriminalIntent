@@ -1,9 +1,9 @@
-package com.estudos.criminalintent.views
+package com.estudos.criminalitent.views.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.estudos.criminalintent.R
-import com.estudos.criminalintent.databinding.ActivityMainBinding
+import com.estudos.criminalitent.R
+import com.estudos.criminalitent.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,5 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
     }
+    
 }
