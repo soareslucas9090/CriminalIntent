@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_main_fragment_container"
-    android:name="com.estudos.criminalitent.views.fragments.CrimeDetailFragment"
+    android:name="com.estudos.criminalitent.views.fragments.crimelist.CrimeListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.activitys.MainActivity">

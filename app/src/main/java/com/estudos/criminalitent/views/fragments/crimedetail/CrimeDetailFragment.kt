@@ -1,4 +1,4 @@
-package com.estudos.criminalitent.views.fragments
+package com.estudos.criminalitent.views.fragments.crimedetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import java.util.UUID
     class CrimeDetailFragment: Fragment() {
 
         /**
-         * É criado um _binding e um binding para possibilitar que nenhumA view esteja salvo na memória
+         * É criado um _binding e um binding para possibilitar que nenhuma view esteja salvo na memória
          * no momento em que este fragment for destruido
          * _binding é usado par receber o inflate do fragment e ser excluido da memoria por onDestroyView
          *
@@ -70,7 +70,6 @@ import java.util.UUID
         }
 
         override fun onDestroyView() {
-
             super.onDestroyView()
             _binding = null
         }
