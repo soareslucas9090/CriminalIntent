@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.estudos.criminalitent.databinding.FragmentCrimeListBinding
 
 class CrimeListFragment: Fragment() {
@@ -33,6 +34,9 @@ class CrimeListFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCrimeListBinding.inflate(layoutInflater, container, false)
+
+        binding.recyclerViewCrimeList.layoutManager = LinearLayoutManager(context,)
+
         return binding.root
     }
 
