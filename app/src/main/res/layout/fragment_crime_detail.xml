@@ -32,10 +32,25 @@
         android:background="@drawable/bt_default"
         android:textColor="@color/white"
         tools:text="Wed May 11 11:56 EST 2022" />
-    <CheckBox
-        android:id="@+id/checkBox_crime_solved"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/crime_solved_label" />
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/checkBox_crime_solved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/crime_solved_label" />
+
+        <CheckBox
+            android:id="@+id/checkBox_crime_requiresPolice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/crime_requiresPolice_label" />
+    </LinearLayout>
+
 
 </LinearLayout>

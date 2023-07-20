@@ -35,7 +35,8 @@ import java.util.UUID
                 id = UUID.randomUUID(),
                 title = "",
                 date = Date(),
-                isSolved = false
+                isSolved = false,
+                requiresPolice = false
             )
         }
 
