@@ -1,4 +1,4 @@
-package com.estudos.criminalintent.database.crime
+package com.estudos.criminalintent.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -9,6 +9,6 @@ import com.estudos.criminalintent.data.Crime
 @TypeConverters(CrimeTypeConverters::class)
 abstract class CrimeDataBase:RoomDatabase() {
 
-    abstract fun crimeDao():CrimeDao
+    abstract fun crimeDao(): CrimeDao
 
 }

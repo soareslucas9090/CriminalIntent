@@ -1,4 +1,4 @@
-package com.estudos.criminalintent.database.crime
+package com.estudos.criminalintent.database
 
 import androidx.room.TypeConverter
 import java.util.Date

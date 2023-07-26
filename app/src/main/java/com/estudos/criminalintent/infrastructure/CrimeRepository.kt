@@ -3,7 +3,8 @@ package com.estudos.criminalintent.infrastructure
 import android.content.Context
 import androidx.room.Room
 import com.estudos.criminalintent.data.Crime
-import com.estudos.criminalintent.database.crime.CrimeDataBase
+import com.estudos.criminalintent.database.CrimeDataBase
+import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
 private const val DATABASE_NAME = "BDCrimeIntent"
@@ -14,7 +15,7 @@ class CrimeRepository private constructor (context: Context){
             CrimeDataBase::class.java,
             DATABASE_NAME).build()
 
-    suspend fun getCrimes(): List<Crime> = database.crimeDao().getCrimes()
+    fun getCrimes(): Flow<List<Crime>> = database.crimeDao().getCrimes()
 
     suspend fun getCrime(id: UUID): Crime = database.crimeDao().getCrime(id)
 
