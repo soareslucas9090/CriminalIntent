@@ -1,9 +1,9 @@
-package com.estudos.criminalitent.views.activitys
+package com.estudos.criminalintent.views.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.estudos.criminalitent.R
-import com.estudos.criminalitent.databinding.ActivityMainBinding
+import com.estudos.criminalintent.R
+import com.estudos.criminalintent.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

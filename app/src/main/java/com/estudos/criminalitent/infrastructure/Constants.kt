@@ -1,4 +1,4 @@
-package com.estudos.criminalitent.infrastructure
+package com.estudos.criminalintent.infrastructure
 
 class Constants {
 

@@ -1,4 +1,4 @@
-package com.estudos.criminalitent.views.fragments.crimedetail
+package com.estudos.criminalintent.views.fragments.crimedetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import com.estudos.criminalitent.data.Crime
-import com.estudos.criminalitent.databinding.FragmentCrimeDetailBinding
+import com.estudos.criminalintent.data.Crime
+import com.estudos.criminalintent.databinding.FragmentCrimeDetailBinding
 import java.util.Date
 import java.util.UUID
 

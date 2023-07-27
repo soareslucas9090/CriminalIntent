@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.estudos.criminalitent'
+    namespace 'com.estudos.criminalintent'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.estudos.criminalitent"
+        applicationId "com.estudos.criminalintent"
         minSdk 24
         targetSdk 33
         versionCode 1

@@ -1,4 +1,4 @@
-package com.estudos.criminalitent.adapters
+package com.estudos.criminalintent.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.estudos.criminalitent.data.Crime
-import com.estudos.criminalitent.databinding.ViewListItemCrimeBinding
-import com.estudos.criminalitent.databinding.ViewListItemCrimePoliceBinding
+import com.estudos.criminalintent.data.Crime
+import com.estudos.criminalintent.databinding.ViewListItemCrimeBinding
+import com.estudos.criminalintent.databinding.ViewListItemCrimePoliceBinding
 
 open class Holder(val binding: ViewBinding): RecyclerView.ViewHolder(binding.root){
     open fun bind(crime: Crime) {}

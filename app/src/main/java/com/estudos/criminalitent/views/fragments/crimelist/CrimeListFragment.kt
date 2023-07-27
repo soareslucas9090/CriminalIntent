@@ -1,4 +1,4 @@
-package com.estudos.criminalitent.views.fragments.crimelist
+package com.estudos.criminalintent.views.fragments.crimelist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.estudos.criminalitent.adapters.CrimeListAdapter
-import com.estudos.criminalitent.databinding.FragmentCrimeListBinding
+import com.estudos.criminalintent.adapters.CrimeListAdapter
+import com.estudos.criminalintent.databinding.FragmentCrimeListBinding
 
 class CrimeListFragment: Fragment() {
 

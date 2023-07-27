@@ -1,4 +1,4 @@
-package com.estudos.criminalitent.data
+package com.estudos.criminalintent.data
 
 import java.util.Date
 import java.util.UUID

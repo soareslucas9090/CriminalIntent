@@ -1,7 +1,7 @@
-package com.estudos.criminalitent.views.fragments.crimelist
+package com.estudos.criminalintent.views.fragments.crimelist
 
 import androidx.lifecycle.ViewModel
-import com.estudos.criminalitent.data.Crime
+import com.estudos.criminalintent.data.Crime
 import java.util.Date
 import java.util.UUID
 
