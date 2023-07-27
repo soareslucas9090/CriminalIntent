@@ -1,5 +1,6 @@
 package com.estudos.criminalintent.adapters
 
+import android.icu.text.DateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,36 +11,37 @@ import com.estudos.criminalintent.data.Crime
 import com.estudos.criminalintent.databinding.ViewListItemCrimeBinding
 import com.estudos.criminalintent.databinding.ViewListItemCrimePoliceBinding
 
-open class Holder(val binding: ViewBinding): RecyclerView.ViewHolder(binding.root){
+open class Holder(open val binding: ViewBinding): RecyclerView.ViewHolder(binding.root){
+    val df = DateFormat.getPatternInstance("E dd 'de' MMM 'de' YYYY")
     open fun bind(crime: Crime) {}
 }
-class CrimeHolder (val bindingCrime: ViewListItemCrimeBinding): Holder(bindingCrime) {
+class CrimeHolder (override val binding: ViewListItemCrimeBinding): Holder(binding) {
 
     override fun bind(crime: Crime){
-        bindingCrime.textViewCrimeTitle.text = crime.title
-        bindingCrime.textViewCrimeDate.text = crime.date.toString()
-        bindingCrime.imageSolved.isVisible = crime.isSolved
+        binding.textViewCrimeTitle.text = crime.title
+        binding.textViewCrimeDate.text = df.format(crime.date)
+        binding.imageSolved.isVisible = crime.isSolved
 
-        bindingCrime.root.setOnClickListener{
-            Toast.makeText(bindingCrime.root.context, "${crime.title} clicado", Toast.LENGTH_SHORT).show()
+        binding.root.setOnClickListener{
+            Toast.makeText(binding.root.context, "${crime.title} clicado", Toast.LENGTH_SHORT).show()
         }
     }
 
 }
 
-class CrimePoliceHolder (val bindingCrimePolice: ViewListItemCrimePoliceBinding): Holder(bindingCrimePolice) {
+class CrimePoliceHolder (override val binding: ViewListItemCrimePoliceBinding): Holder(binding) {
 
     override fun bind(crime: Crime){
-        bindingCrimePolice.textViewCrimeTitle.text = crime.title
-        bindingCrimePolice.textViewCrimeDate.text = crime.date.toString()
-        bindingCrimePolice.imageSolved.isVisible = crime.isSolved
+        binding.textViewCrimeTitle.text = crime.title
+        binding.textViewCrimeDate.text = df.format(crime.date)
+        binding.imageSolved.isVisible = crime.isSolved
 
-        bindingCrimePolice.imagePolice.setOnClickListener{
-            Toast.makeText(bindingCrimePolice.root.context, "Ligue para policia", Toast.LENGTH_SHORT).show()
+        binding.imagePolice.setOnClickListener{
+            Toast.makeText(binding.root.context, "Ligue para policia", Toast.LENGTH_SHORT).show()
         }
 
-        bindingCrimePolice.root.setOnClickListener{
-            Toast.makeText(bindingCrimePolice.root.context, "${crime.title} clicado", Toast.LENGTH_SHORT).show()
+        binding.root.setOnClickListener{
+            Toast.makeText(binding.root.context, "${crime.title} clicado", Toast.LENGTH_SHORT).show()
         }
     }
 
