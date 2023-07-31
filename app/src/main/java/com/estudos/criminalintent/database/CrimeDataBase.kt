@@ -5,10 +5,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.estudos.criminalintent.data.Crime
 
-@Database(entities = [ Crime::class ], version=1)
+@Database(entities = [Crime::class], version = 1)
 @TypeConverters(CrimeTypeConverters::class)
-abstract class CrimeDataBase:RoomDatabase() {
-
+abstract class CrimeDatabase : RoomDatabase() {
     abstract fun crimeDao(): CrimeDao
-
 }

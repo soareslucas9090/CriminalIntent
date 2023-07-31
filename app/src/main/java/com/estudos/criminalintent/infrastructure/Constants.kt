@@ -1,9 +1,11 @@
 package com.estudos.criminalintent.infrastructure
 
-class Constants {
+import android.icu.text.DateFormat
 
-    /** *Constantes usadas TAGS de Log de depuração */
-    object TAG {
+class Constants private constructor() {
+
+    object FORMATS{
+        val dateFormat: DateFormat = DateFormat.getPatternInstance("E dd 'de' MMM 'de' YYYY")
     }
 
 }
