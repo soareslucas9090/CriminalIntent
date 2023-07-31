@@ -1,6 +1,5 @@
 package com.estudos.criminalintent.adapters
 
-import android.icu.text.DateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -8,32 +7,42 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.estudos.criminalintent.data.Crime
-import com.estudos.criminalintent.databinding.ViewListItemCrimeBinding
-import com.estudos.criminalintent.databinding.ViewListItemCrimePoliceBinding
+import com.estudos.criminalintent.databinding.ListItemCrimeBinding
+import com.estudos.criminalintent.databinding.ListItemCrimePoliceBinding
+import com.estudos.criminalintent.infrastructure.Constants
+import java.util.UUID
 
+/**
+ * Esta classe serve como uma classe mãe para criar diferentes tipos de viewholders baseados
+ * em diferentes layouts
+ *
+ * @property binding
+ */
 open class Holder(open val binding: ViewBinding): RecyclerView.ViewHolder(binding.root){
-    val df = DateFormat.getPatternInstance("E dd 'de' MMM 'de' YYYY")
-    open fun bind(crime: Crime) {}
-}
-class CrimeHolder (override val binding: ViewListItemCrimeBinding): Holder(binding) {
 
-    override fun bind(crime: Crime){
+    val dateFormat = Constants.FORMATS.dateFormat
+    open fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit) {}
+}
+
+class CrimeHolder (override val binding: ListItemCrimeBinding): Holder(binding) {
+
+    override fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit){
         binding.textViewCrimeTitle.text = crime.title
-        binding.textViewCrimeDate.text = df.format(crime.date)
+        binding.textViewCrimeDate.text = dateFormat.format(crime.date)
         binding.imageSolved.isVisible = crime.isSolved
 
         binding.root.setOnClickListener{
-            Toast.makeText(binding.root.context, "${crime.title} clicado", Toast.LENGTH_SHORT).show()
+            onCrimeClicked(crime.id)
         }
     }
 
 }
 
-class CrimePoliceHolder (override val binding: ViewListItemCrimePoliceBinding): Holder(binding) {
+class CrimePoliceHolder (override val binding: ListItemCrimePoliceBinding): Holder(binding) {
 
-    override fun bind(crime: Crime){
+    override fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit){
         binding.textViewCrimeTitle.text = crime.title
-        binding.textViewCrimeDate.text = df.format(crime.date)
+        binding.textViewCrimeDate.text = dateFormat.format(crime.date)
         binding.imageSolved.isVisible = crime.isSolved
 
         binding.imagePolice.setOnClickListener{
@@ -41,20 +50,21 @@ class CrimePoliceHolder (override val binding: ViewListItemCrimePoliceBinding): 
         }
 
         binding.root.setOnClickListener{
-            Toast.makeText(binding.root.context, "${crime.title} clicado", Toast.LENGTH_SHORT).show()
+            onCrimeClicked(crime.id)
         }
     }
 
 }
 
-class CrimeListAdapter (private val crimes: List<Crime>): RecyclerView.Adapter<Holder>() {
+
+class CrimeListAdapter (private val crimes: List<Crime>, private val onCrimeClicked: (crimeId: UUID) -> Unit): RecyclerView.Adapter<Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == 0) {
-            val binding = ViewListItemCrimeBinding.inflate(inflater, parent, false)
+            val binding = ListItemCrimeBinding.inflate(inflater, parent, false)
             CrimeHolder(binding)
         } else{
-            val binding = ViewListItemCrimePoliceBinding.inflate(inflater, parent, false)
+            val binding = ListItemCrimePoliceBinding.inflate(inflater, parent, false)
             CrimePoliceHolder(binding)
         }
     }
@@ -64,7 +74,7 @@ class CrimeListAdapter (private val crimes: List<Crime>): RecyclerView.Adapter<H
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val crime = crimes[position]
-        holder.bind(crime)
+        holder.bind(crime, onCrimeClicked)
     }
 
 
