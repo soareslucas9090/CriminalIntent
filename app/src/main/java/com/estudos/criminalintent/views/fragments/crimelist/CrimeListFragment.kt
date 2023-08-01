@@ -45,6 +45,11 @@ class CrimeListFragment : Fragment() {
         _binding = FragmentCrimeListBinding.inflate(inflater, container, false)
 
         binding.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        binding.buttonAddCrime.setOnClickListener{
+            showNewCrime()
+        }
+
         return binding.root
     }
 
@@ -64,6 +69,25 @@ class CrimeListFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+
+        super.onResume()
+        viewLifecycleOwner.lifecycleScope.launch {
+            crimeListViewModel.crimes.collect { crimes ->
+                if (crimes.isEmpty()) {
+                    binding.textEmptyCrimeList.visibility = View.VISIBLE
+                    binding.buttonAddCrime.visibility = View.VISIBLE
+                    binding.crimeRecyclerView.visibility = View.GONE
+                } else {
+                    binding.textEmptyCrimeList.visibility = View.GONE
+                    binding.buttonAddCrime.visibility = View.GONE
+                    binding.crimeRecyclerView.visibility = View.VISIBLE
+                }
+            }
+
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -72,7 +96,7 @@ class CrimeListFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.fragment_crime_list, menu)
-   }
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -80,6 +104,7 @@ class CrimeListFragment : Fragment() {
                 showNewCrime()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

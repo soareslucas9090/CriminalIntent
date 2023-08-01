@@ -9,4 +9,7 @@
     <string name="crime_date">Crime Date</string>
     <string name="toast_title_required">The title is required</string>
     <string name="new_crime">New crime</string>
+    <string name="delete_crime">Delete crime</string>
+    <string name="save_crime">Save</string>
+    <string name="crime_list_empty">Crime List is Empty!</string>
 </resources>

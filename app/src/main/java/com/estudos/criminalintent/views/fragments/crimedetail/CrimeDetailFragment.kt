@@ -2,6 +2,9 @@ package com.estudos.criminalintent.views.fragments.crimedetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -43,6 +46,8 @@ class CrimeDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
 
         callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             val titleText = binding.editTextCrimeTitle.text.toString()
@@ -114,6 +119,29 @@ class CrimeDetailFragment : Fragment() {
             crimeDetailViewModel.updateCrime { it.copy(time = newTime) }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.fragment_crime_detail, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.delete_crime -> {
+                deleteCrime()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun deleteCrime(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            crimeDetailViewModel.deleteCrime()
+            requireActivity().onBackPressed()
+        }
     }
 
     private fun updateUi(crime: Crime) {

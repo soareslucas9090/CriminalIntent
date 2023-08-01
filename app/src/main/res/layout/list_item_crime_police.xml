@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:text="@string/crime_title"
-        style="@style/TextListItemText"
+        android:textAppearance="@style/TextBoldCrime"
         app:layout_constraintBottom_toTopOf="@+id/textView_crime_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:text="@string/crime_date"
-        style="@style/TextDateListItemText"
+        style="@style/TextLightCrime"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_crime_title" />
