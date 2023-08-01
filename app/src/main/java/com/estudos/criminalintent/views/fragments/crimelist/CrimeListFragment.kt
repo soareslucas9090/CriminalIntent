@@ -90,8 +90,9 @@ class CrimeListFragment : Fragment() {
                 id = UUID.randomUUID(),
                 title = "",
                 date = Date(),
+                time = Date(),
                 isSolved = false,
-                requiresPolice = false
+                requiresPolice = false,
             )
             crimeListViewModel.addCrime(newCrime)
             findNavController().navigate(

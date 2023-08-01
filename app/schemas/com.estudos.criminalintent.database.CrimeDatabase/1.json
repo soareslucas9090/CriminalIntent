@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "47a1953dbf03f5dd1062aa6ae10892ba",
+    "identityHash": "021f1ef1eec7cd38c405c2617ca1bc32",
     "entities": [
       {
         "tableName": "Crime",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` BLOB NOT NULL, `title` TEXT NOT NULL, `date` INTEGER NOT NULL, `isSolved` INTEGER NOT NULL, `requiresPolice` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` BLOB NOT NULL, `title` TEXT NOT NULL, `date` INTEGER NOT NULL, `time` INTEGER NOT NULL, `isSolved` INTEGER NOT NULL, `requiresPolice` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -27,6 +27,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "isSolved",
             "columnName": "isSolved",
             "affinity": "INTEGER",
@@ -40,10 +46,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": false,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": false
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -52,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '47a1953dbf03f5dd1062aa6ae10892ba')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '021f1ef1eec7cd38c405c2617ca1bc32')"
     ]
   }
 }

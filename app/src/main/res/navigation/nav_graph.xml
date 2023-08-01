@@ -9,7 +9,8 @@
         android:id="@+id/crimeListFragment"
         android:name="com.estudos.criminalintent.views.fragments.crimelist.CrimeListFragment"
         android:label="CrimeListFragment"
-        tools:layout="@layout/fragment_crime_list">
+        tools:layout="@layout/fragment_crime_list"
+        tools:listitem="@layout/list_item_crime_police" >
         <action
             android:id="@+id/show_crime_detail"
             app:destination="@id/crimeDetailFragment" />
@@ -25,6 +26,9 @@
         <action
             android:id="@+id/select_date"
             app:destination="@id/datePickerFragment" />
+        <action
+            android:id="@+id/select_time"
+            app:destination="@id/timePickerFragment" />
     </fragment>
     <dialog
         android:id="@+id/datePickerFragment"
@@ -32,6 +36,14 @@
         android:label="DatePickerFragment" >
         <argument
             android:name="crimeDate"
+            app:argType="java.util.Date" />
+    </dialog>
+    <dialog
+        android:id="@+id/timePickerFragment"
+        android:name="com.estudos.criminalintent.views.fragments.crimedetail.timepicker.TimePickerFragment"
+        android:label="TimePickerFragment" >
+        <argument
+            android:name="crimeTime"
             app:argType="java.util.Date" />
     </dialog>
 </navigation>

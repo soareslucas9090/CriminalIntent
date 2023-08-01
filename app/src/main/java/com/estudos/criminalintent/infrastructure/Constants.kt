@@ -6,6 +6,7 @@ class Constants private constructor() {
 
     object FORMATS{
         val dateFormat: DateFormat = DateFormat.getPatternInstance("E dd 'de' MMM 'de' YYYY")
+        val timeFormat: DateFormat = DateFormat.getPatternInstance(DateFormat.HOUR_MINUTE)
     }
 
 }

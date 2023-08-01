@@ -21,6 +21,7 @@ import com.estudos.criminalintent.data.Crime
 import com.estudos.criminalintent.databinding.FragmentCrimeDetailBinding
 import com.estudos.criminalintent.infrastructure.Constants
 import com.estudos.criminalintent.views.fragments.crimedetail.datepicker.DatePickerFragment
+import com.estudos.criminalintent.views.fragments.crimedetail.timepicker.TimePickerFragment
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -104,19 +105,37 @@ class CrimeDetailFragment : Fragment() {
                 bundle.getSerializable(DatePickerFragment.BUNDLE_KEY_DATE) as Date
             crimeDetailViewModel.updateCrime { it.copy(date = newDate) }
         }
+
+        setFragmentResultListener(
+            TimePickerFragment.REQUEST_KEY_TIME
+        ) { _, bundle ->
+            val newTime =
+                bundle.getSerializable(TimePickerFragment.BUNDLE_KEY_TIME) as Date
+            crimeDetailViewModel.updateCrime { it.copy(time = newTime) }
+        }
+
     }
 
     private fun updateUi(crime: Crime) {
         val dateFormat = Constants.FORMATS.dateFormat
+        val timeFormat = Constants.FORMATS.timeFormat
 
         binding.apply {
             if (editTextCrimeTitle.text.toString() != crime.title) {
                 editTextCrimeTitle.setText(crime.title)
             }
+
             buttonCrimeDate.text = dateFormat.format(crime.date)
             buttonCrimeDate.setOnClickListener {
                 findNavController().navigate(
                     CrimeDetailFragmentDirections.selectDate(crime.date)
+                )
+            }
+
+            buttonCrimeTime.text = timeFormat.format(crime.time)
+            buttonCrimeTime.setOnClickListener {
+                findNavController().navigate(
+                    CrimeDetailFragmentDirections.selectTime(crime.time)
                 )
             }
 
