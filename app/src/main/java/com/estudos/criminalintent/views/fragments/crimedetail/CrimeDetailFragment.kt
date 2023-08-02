@@ -137,7 +137,7 @@ class CrimeDetailFragment : Fragment() {
         }
     }
 
-    private fun deleteCrime(){
+    private fun deleteCrime() {
         viewLifecycleOwner.lifecycleScope.launch {
             crimeDetailViewModel.deleteCrime()
             requireActivity().onBackPressed()
@@ -177,3 +177,4 @@ class CrimeDetailFragment : Fragment() {
         _binding = null
     }
 }
+

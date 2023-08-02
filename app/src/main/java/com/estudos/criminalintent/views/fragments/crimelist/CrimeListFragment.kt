@@ -46,7 +46,7 @@ class CrimeListFragment : Fragment() {
 
         binding.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        binding.buttonAddCrime.setOnClickListener{
+        binding.buttonAddCrime.setOnClickListener {
             showNewCrime()
         }
 
@@ -110,19 +110,8 @@ class CrimeListFragment : Fragment() {
     }
 
     private fun showNewCrime() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val newCrime = Crime(
-                id = UUID.randomUUID(),
-                title = "",
-                date = Date(),
-                time = Date(),
-                isSolved = false,
-                requiresPolice = false,
-            )
-            crimeListViewModel.addCrime(newCrime)
-            findNavController().navigate(
-                CrimeListFragmentDirections.showCrimeDetail(newCrime.id)
-            )
-        }
+        findNavController().navigate(
+            CrimeListFragmentDirections.showCrimeDetail(UUID.fromString("00000000-0000-0000-0000-000000000000"))
+        )
     }
 }

@@ -1,5 +1,6 @@
 package com.estudos.criminalintent.views.fragments.crimedetail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Date
 import java.util.UUID
 
 class CrimeDetailViewModel(crimeId: UUID) : ViewModel() {
@@ -17,10 +19,25 @@ class CrimeDetailViewModel(crimeId: UUID) : ViewModel() {
 
     private val _crime: MutableStateFlow<Crime?> = MutableStateFlow(null)
     val crime: StateFlow<Crime?> = _crime.asStateFlow()
+    private var crimeAlreadyExists = false
 
     init {
+
         viewModelScope.launch {
-            _crime.value = crimeRepository.getCrime(crimeId)
+            if (crimeId == UUID.fromString("00000000-0000-0000-0000-000000000000")) {
+                val newCrime = Crime(
+                    id = UUID.randomUUID(),
+                    title = "",
+                    date = Date(),
+                    time = Date(),
+                    isSolved = false,
+                    requiresPolice = false,
+                )
+                _crime.value = newCrime
+            } else {
+                _crime.value = crimeRepository.getCrime(crimeId)
+                crimeAlreadyExists = true
+            }
         }
     }
 
@@ -36,7 +53,13 @@ class CrimeDetailViewModel(crimeId: UUID) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        crime.value?.let { crimeRepository.updateCrime(it) }
+        crime.value?.let {
+            if (crimeAlreadyExists) {
+                crimeRepository.updateCrime(it)
+            } else {
+                crimeRepository.addCrime(it)
+            }
+        }
     }
 }
 
