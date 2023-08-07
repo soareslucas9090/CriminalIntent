@@ -20,7 +20,8 @@ import java.util.UUID
  */
 open class Holder(open val binding: ViewBinding): RecyclerView.ViewHolder(binding.root){
 
-    val dateFormat = Constants.FORMATS.dateFormat
+    val dateFormat = Constants.FORMATS.DATEFORMAT
+    val timeFormat = Constants.FORMATS.TIMEFORMAT
     open fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit) {}
 }
 
@@ -29,6 +30,7 @@ class CrimeHolder (override val binding: ListItemCrimeBinding): Holder(binding) 
     override fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit){
         binding.textViewCrimeTitle.text = crime.title
         binding.textViewCrimeDate.text = dateFormat.format(crime.date)
+        binding.textViewCrimeTime.text = ", ${timeFormat.format(crime.time)}h"
         binding.imageSolved.isVisible = crime.isSolved
 
         binding.root.setOnClickListener{
@@ -43,6 +45,7 @@ class CrimePoliceHolder (override val binding: ListItemCrimePoliceBinding): Hold
     override fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit){
         binding.textViewCrimeTitle.text = crime.title
         binding.textViewCrimeDate.text = dateFormat.format(crime.date)
+        binding.textViewCrimeTime.text = ", ${timeFormat.format(crime.time)}h"
         binding.imageSolved.isVisible = crime.isSolved
 
         binding.imagePolice.setOnClickListener{

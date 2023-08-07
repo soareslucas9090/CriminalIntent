@@ -7,9 +7,25 @@
     <string name="crime_requiresPolice_label">Requires Police</string>
     <string name="crime_title">Crime Title</string>
     <string name="crime_date">Crime Date</string>
+    <string name="crime_time">Crime Time</string>
     <string name="toast_title_required">The title is required</string>
     <string name="new_crime">New crime</string>
     <string name="delete_crime">Delete crime</string>
     <string name="save_crime">Save</string>
     <string name="crime_list_empty">Crime List is Empty!</string>
+    <string name="delete_crime_or_not">Delete crime "%s"?</string>
+    <string name="delete_this_crime">Do you want to delete this crime?</string>
+    <string name="delete_crime_no">No</string>
+    <string name="delete_crime_yes">Yes</string>
+    <string name="crime_suspect_text">Choose Suspect</string>
+    <string name="crime_report_text">Send Crime Report</string>
+    <string name="crime_report">%1$s!
+        The crime was discovered on %2$s. %3$s, and %4$s
+    </string>
+    <string name="crime_report_solved">The case is solved</string>
+    <string name="crime_report_unsolved">The case is not solved</string>
+    <string name="crime_report_no_suspect">there is no suspect.</string>
+    <string name="crime_report_suspect">the suspect is %s.</string>
+    <string name="crime_report_subject">CriminalIntent Crime Report</string>
+    <string name="send_report">Send crime report via</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.estudos.criminalintent.views.fragments.crimedetail
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -29,6 +31,8 @@ import kotlinx.coroutines.launch
 import java.util.Date
 
 class CrimeDetailFragment : Fragment() {
+
+    private val dateFormatReport = Constants.FORMATS.DATEFORMATREPORT
 
     private var _binding: FragmentCrimeDetailBinding? = null
     private val binding
@@ -129,12 +133,28 @@ class CrimeDetailFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.delete_crime -> {
-                deleteCrime()
+                showDeleteConfirm()
                 true
             }
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showDeleteConfirm() {
+        val builder = AlertDialog.Builder(context)
+
+        builder.setTitle(getString(R.string.delete_crime_or_not, binding.editTextCrimeTitle.text))
+        builder.setMessage(getString(R.string.delete_this_crime))
+
+        builder.setPositiveButton(getString(R.string.delete_crime_yes)) { _, _ ->
+            deleteCrime()
+        }
+
+        builder.setNegativeButton(getString(R.string.delete_crime_no)) { _, _ -> }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
     private fun deleteCrime() {
@@ -145,8 +165,8 @@ class CrimeDetailFragment : Fragment() {
     }
 
     private fun updateUi(crime: Crime) {
-        val dateFormat = Constants.FORMATS.dateFormat
-        val timeFormat = Constants.FORMATS.timeFormat
+        val dateFormat = Constants.FORMATS.DATEFORMAT
+        val timeFormat = Constants.FORMATS.TIMEFORMAT
 
         binding.apply {
             if (editTextCrimeTitle.text.toString() != crime.title) {
@@ -167,9 +187,44 @@ class CrimeDetailFragment : Fragment() {
                 )
             }
 
+            crimeReport.setOnClickListener {
+                val reportIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, getCrimeReport(crime))
+                    putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crime_report_subject))
+                }
+
+                val chooserIntent = Intent.createChooser(reportIntent, getString(R.string.send_report))
+
+                startActivity(chooserIntent)
+            }
+
             checkBoxCrimeSolved.isChecked = crime.isSolved
             checkBoxCrimeRequiresPolice.isChecked = crime.requiresPolice
         }
+    }
+
+    private fun getCrimeReport(crime: Crime): String {
+        val solvedString =
+            if (crime.isSolved) {
+                getString(R.string.crime_report_solved)
+            } else {
+                getString(R.string.crime_report_unsolved)
+            }
+
+        val dateString = dateFormatReport.format(crime.date)
+
+        val suspectText =
+            if (crime.suspect.isBlank()) {
+                getString(R.string.crime_report_no_suspect)
+            } else {
+                getString(R.string.crime_report_suspect, crime.suspect)
+            }
+
+        return getString(
+            R.string.crime_report,
+            crime.title, dateString, solvedString, suspectText
+        )
     }
 
     override fun onDestroyView() {

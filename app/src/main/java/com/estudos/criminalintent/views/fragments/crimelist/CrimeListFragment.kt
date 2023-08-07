@@ -1,6 +1,8 @@
 package com.estudos.criminalintent.views.fragments.crimelist
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -18,8 +20,8 @@ import com.estudos.criminalintent.R
 import com.estudos.criminalintent.adapters.CrimeListAdapter
 import com.estudos.criminalintent.data.Crime
 import com.estudos.criminalintent.databinding.FragmentCrimeListBinding
+import com.estudos.criminalintent.infrastructure.Constants
 import kotlinx.coroutines.launch
-import java.util.Date
 import java.util.UUID
 
 class CrimeListFragment : Fragment() {
@@ -58,6 +60,7 @@ class CrimeListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 crimeListViewModel.crimes.collect { crimes ->
+                    Log.d("TESTE", "$crimes")
                     binding.crimeRecyclerView.adapter =
                         CrimeListAdapter(crimes) { crimeId ->
                             findNavController().navigate(
@@ -114,4 +117,5 @@ class CrimeListFragment : Fragment() {
             CrimeListFragmentDirections.showCrimeDetail(UUID.fromString("00000000-0000-0000-0000-000000000000"))
         )
     }
+
 }

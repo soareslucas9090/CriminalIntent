@@ -31,6 +31,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_crime_title" />
 
+    <TextView
+        android:id="@+id/textView_crime_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/crime_time"
+        android:textAppearance="@style/TextLightCrime"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textView_crime_date"
+        app:layout_constraintTop_toBottomOf="@id/textView_crime_title" />
+
     <ImageView
         android:id="@+id/image_police"
         android:layout_width="wrap_content"

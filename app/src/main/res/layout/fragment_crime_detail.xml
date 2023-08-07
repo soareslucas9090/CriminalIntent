@@ -34,7 +34,9 @@
         android:id="@+id/editText_crime_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="25dp"
         android:hint="@string/crime_title_hint"
+        android:gravity="center"
         android:inputType="text"
         android:layout_marginTop="30dp"
         android:textAppearance="@style/TextLightCrime"
@@ -85,7 +87,7 @@
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="70dp"
+        android:layout_margin="50dp"
         android:padding="5dp"
         android:background="@drawable/bt_default"
         android:drawableStart="@drawable/ic_time"
@@ -97,29 +99,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <CheckBox
-        android:id="@+id/checkBox_crime_solved"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linear_layout_checkboxs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/crime_solved_label"
-        android:layout_marginBottom="70dp"
-        android:textAppearance="@style/TextLightCrime"
-        app:layout_constraintTop_toBottomOf="@id/button_crime_time"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/checkBox_crime_requiresPolice"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <CheckBox
-        android:id="@+id/checkBox_crime_requiresPolice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/crime_requiresPolice_label"
-        android:layout_marginBottom="70dp"
-        android:textAppearance="@style/TextLightCrime"
-        app:layout_constraintTop_toBottomOf="@id/button_crime_time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/checkBox_crime_solved"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_crime_time"
+        app:layout_constraintBottom_toTopOf="@id/crime_suspect">
+
+        <CheckBox
+            android:id="@+id/checkBox_crime_solved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/crime_solved_label"
+            android:textAppearance="@style/TextLightCrime"/>
+
+        <CheckBox
+            android:id="@+id/checkBox_crime_requiresPolice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/crime_requiresPolice_label"
+            />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/crime_suspect"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/crime_suspect_text"
+        android:background="@drawable/bt_default"
+        android:drawableTint="@color/white"
+        android:textColor="@color/white"
+        android:textAppearance="@style/TextLightCrime"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_checkboxs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/crime_report"
         />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/crime_report"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/crime_report_text"
+        android:background="@drawable/bt_default"
+        android:drawableTint="@color/white"
+        android:textColor="@color/white"
+        android:textAppearance="@style/TextLightCrime"
+        app:layout_constraintTop_toBottomOf="@id/crime_suspect"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
