@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.estudos.criminalintent">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".infrastructure.CriminalIntentApplication"
         android:allowBackup="true"

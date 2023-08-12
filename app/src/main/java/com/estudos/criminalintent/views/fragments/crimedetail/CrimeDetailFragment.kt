@@ -1,9 +1,9 @@
 package com.estudos.criminalintent.views.fragments.crimedetail
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -32,6 +33,7 @@ import com.estudos.criminalintent.databinding.FragmentCrimeDetailBinding
 import com.estudos.criminalintent.infrastructure.Constants
 import com.estudos.criminalintent.views.fragments.crimedetail.datepicker.DatePickerFragment
 import com.estudos.criminalintent.views.fragments.crimedetail.timepicker.TimePickerFragment
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -58,6 +60,17 @@ class CrimeDetailFragment : Fragment() {
     ) { uri ->
         uri?.let { parseContactSelection(it) }
     }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission())
+        { isGranted: Boolean ->
+            if (isGranted) {
+                selectSuspect.launch(null)
+            } else {
+                Toast.makeText(requireContext(), R.string.contact_permission_denied, Toast.LENGTH_LONG).show()
+                binding.buttonCrimeSuspect.isEnabled = false
+            }
+        }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,15 +122,36 @@ class CrimeDetailFragment : Fragment() {
                 }
             }
 
-            crimeSuspect.setOnClickListener {
-                selectSuspect.launch(null)
+            buttonCrimeSuspect.setOnClickListener {
+                if (
+                    ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.READ_CONTACTS
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    requestPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+                } else {
+                    selectSuspect.launch(null)
+                }
+            }
+
+            buttonCallCrimeSuspect.setOnClickListener {
+                val suspectNumber = crimeDetailViewModel.crime.value?.numberSuspect
+
+                if (suspectNumber.isNullOrEmpty()){
+                    Toast.makeText(requireContext(),R.string.contact_dont_have_number,Toast.LENGTH_SHORT).show()
+                } else {
+                    val uri = Uri.parse("tel:$suspectNumber")
+                    val dialIntent = Intent(Intent.ACTION_DIAL, uri)
+                    startActivity(dialIntent)
+                }
             }
 
             val selectSuspectIntent = selectSuspect.contract.createIntent(
                 requireContext(),
                 null
             )
-            crimeSuspect.isEnabled = canResolveIntent(selectSuspectIntent)
+            buttonCrimeSuspect.isEnabled = canResolveIntent(selectSuspectIntent)
 
         }
 
@@ -210,7 +244,7 @@ class CrimeDetailFragment : Fragment() {
                 )
             }
 
-            crimeReport.setOnClickListener {
+            buttonCrimeReport.setOnClickListener {
                 val reportIntent = Intent(Intent.ACTION_SEND).apply {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TEXT, getCrimeReport(crime))
@@ -223,7 +257,7 @@ class CrimeDetailFragment : Fragment() {
                 startActivity(chooserIntent)
             }
 
-            crimeSuspect.text = crime.suspect.ifEmpty {
+            buttonCrimeSuspect.text = crime.suspect.ifEmpty {
                 getString(R.string.crime_suspect_text)
             }
 
@@ -257,31 +291,61 @@ class CrimeDetailFragment : Fragment() {
     }
 
     private fun parseContactSelection(contactUri: Uri) {
-        val queryFields = arrayOf(ContactsContract.Contacts.DISPLAY_NAME)
+        val queryFields = arrayOf(
+            ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts._ID
+        )
 
-        val queryCursor = requireActivity().contentResolver.query(
+        val queryCursor = requireContext().contentResolver.query(
             contactUri,
             queryFields,
             null,
             null,
             null
         )
+
         queryCursor?.use { cursor ->
             if (cursor.moveToFirst()) {
                 val suspect = cursor.getString(0)
+                val numberSuspect = getNumberFromContact(cursor.getString(1))
                 crimeDetailViewModel.updateCrime { oldCrime ->
-                    oldCrime.copy(suspect = suspect)
+                    oldCrime.copy(suspect = suspect, numberSuspect = numberSuspect)
                 }
             }
         }
     }
 
-    private fun canResolveIntent(intent: Intent): Boolean {
-        val packageManager = requireActivity().packageManager
-        val resolvedActivity = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        return resolvedActivity != null
+    private fun getNumberFromContact(contactId: String): String {
+        val queryCursor = requireContext().contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+            arrayOf(contactId),
+            null
+        )
+
+        var phoneNumber = ""
+
+        queryCursor?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                if (cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER) >= 0) {
+                    val columnIndex =
+                        cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                    phoneNumber = cursor.getString(columnIndex)
+                }
+            }
+        }
+
+        queryCursor?.close()
+        return phoneNumber.ifEmpty { "" }
     }
 
+
+    private fun canResolveIntent(intent: Intent): Boolean {
+        val packageManager = requireActivity().packageManager
+        val resolvedActivity =
+            packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        return resolvedActivity != null
+    }
 
 
     override fun onDestroyView() {

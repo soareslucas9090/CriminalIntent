@@ -9,5 +9,6 @@ import java.util.Date
 data class Crime(
     @PrimaryKey val id: UUID, val title: String, val date: Date,
     val time: Date, val isSolved: Boolean, val requiresPolice: Boolean,
-    val suspect: String = ""
+    val suspect: String = "",
+    val numberSuspect: String = ""
 ) {}
